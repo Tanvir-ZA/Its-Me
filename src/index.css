@@ -1,0 +1,428 @@
+@import "tailwindcss";
+
+:root {
+  font-family: Inter, system-ui, sans-serif;
+  color: #f4f4f5;
+  background: #09090b;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #09090b;
+}
+
+/* ================================
+   MAIN BACKGROUND
+================================ */
+
+.portfolio-bg {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 80% 10%,
+      rgba(99, 102, 241, 0.12),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 10% 40%,
+      rgba(59, 130, 246, 0.08),
+      transparent 25%
+    ),
+    #09090b;
+}
+
+/* subtle grid */
+
+.portfolio-bg::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  pointer-events: none;
+  z-index: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px
+    );
+
+  background-size: 70px 70px;
+
+  mask-image: linear-gradient(
+    to bottom,
+    black,
+    transparent 85%
+  );
+}
+
+/* ================================
+   SOFT GLOW
+================================ */
+
+.glow {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+
+  border-radius: 9999px;
+
+  background: rgba(99, 102, 241, 0.12);
+
+  filter: blur(120px);
+
+  pointer-events: none;
+}
+
+/* ================================
+   GRAIN
+================================ */
+
+.grain {
+  position: fixed;
+  inset: 0;
+
+  pointer-events: none;
+  z-index: 50;
+
+  opacity: 0.035;
+
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+
+/* ================================
+   ANIMATIONS
+================================ */
+
+.fade-up {
+  animation: fadeUp 0.9s ease-out both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* ================================
+   BUTTON
+================================ */
+
+.primary-button {
+  position: relative;
+  overflow: hidden;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.primary-button:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 15px 40px rgba(99, 102, 241, 0.22);
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 768px) {
+  .portfolio-bg::before {
+    background-size: 45px 45px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .fade-up,
+  .float {
+    animation: none;
+  }
+}
+
+/* ================================
+   SKILLS MARQUEE
+================================ */
+
+.skill-marquee {
+  width: 100%;
+  overflow: hidden;
+  padding: 10px 0;
+}
+
+.skill-track {
+  display: flex;
+  width: max-content;
+  gap: 16px;
+
+  animation: skillScroll 28s linear infinite;
+}
+
+.skill-marquee:hover .skill-track {
+  animation-play-state: paused;
+}
+
+.skill-pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  min-width: max-content;
+
+  padding: 15px 20px;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+
+  background: rgba(255, 255, 255, 0.025);
+
+  color: #a1a1aa;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.skill-pill:hover {
+  border-color: rgba(129, 140, 248, 0.5);
+  background: rgba(99, 102, 241, 0.08);
+  color: #f4f4f5;
+
+  transform: translateY(-3px);
+}
+
+@keyframes skillScroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .skill-track {
+    gap: 12px;
+    animation-duration: 22s;
+  }
+
+  .skill-pill {
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skill-track {
+    animation: none;
+  }
+}
+
+/* ================================
+   PREMIUM HOVER & REVEAL EFFECTS
+================================ */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(35px);
+  animation: revealUp 0.9s ease-out forwards;
+}
+
+.reveal-delay-1 {
+  animation-delay: 0.15s;
+}
+
+.reveal-delay-2 {
+  animation-delay: 0.3s;
+}
+
+.reveal-delay-3 {
+  animation-delay: 0.45s;
+}
+
+@keyframes revealUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================================
+   PREMIUM CARD
+================================ */
+
+.premium-card {
+  transition:
+    transform 0.4s ease,
+    border-color 0.4s ease,
+    background 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.premium-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.025);
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.35);
+}
+
+/* ================================
+   IMAGE HOVER
+================================ */
+
+.image-hover {
+  overflow: hidden;
+}
+
+.image-hover img {
+  transition:
+    transform 0.8s cubic-bezier(0.2, 0.65, 0.3, 1),
+    filter 0.5s ease;
+}
+
+.image-hover:hover img {
+  transform: scale(1.06);
+  filter: brightness(1.05);
+}
+
+/* ================================
+   TEXT GLOW
+================================ */
+
+.text-glow {
+  transition:
+    color 0.3s ease,
+    text-shadow 0.3s ease;
+}
+
+.text-glow:hover {
+  color: #ffffff;
+  text-shadow:
+    0 0 25px rgba(129, 140, 248, 0.25);
+}
+
+/* ================================
+   REDUCE MOTION
+================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-delay-1,
+  .reveal-delay-2,
+  .reveal-delay-3 {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .premium-card,
+  .image-hover img {
+    transition: none;
+  }
+}
+
+/* ================================
+   RESPONSIVE POLISH
+================================ */
+
+@media (max-width: 768px) {
+  /* Hero */
+  #home h1 {
+    font-size: clamp(3.2rem, 15vw, 5rem);
+    line-height: 0.95;
+  }
+
+  #home {
+    padding-top: 7rem;
+  }
+
+  /* Section headings */
+  #about h2,
+  #skills h2,
+  #projects h2 {
+    font-size: clamp(2.5rem, 11vw, 4rem);
+    line-height: 1;
+  }
+
+  /* Profile image */
+  #home img {
+    max-height: 440px;
+  }
+
+  /* Project */
+  #projects h3 {
+    margin-top: 2rem;
+  }
+
+  /* Connect */
+  #contact h2 {
+    font-size: clamp(3rem, 13vw, 5rem);
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .skill-pill {
+    padding: 11px 15px;
+  }
+
+  .skill-pill img {
+    width: 20px;
+    height: 20px;
+  }
+
+  #projects a,
+  #contact a {
+    width: 100%;
+    justify-content: center;
+  }
+}
