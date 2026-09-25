@@ -55,28 +55,28 @@ const Hero = () => {
           <div className="mt-12 flex items-center gap-6 text-sm text-zinc-500">
 
             <a
-              href="#"
+              href="https://github.com/Tanvir-ZA"
               className="transition hover:text-white"
             >
               GitHub
             </a>
 
             <a
-              href="#"
+              href="https://www.linkedin.com/in/sabbirul-haque-tanvir-5b671929a/"
               className="transition hover:text-white"
             >
               LinkedIn
             </a>
 
             <a
-              href="#"
+              href="https://www.instagram.com/sabbirtan/"
               className="transition hover:text-white"
             >
               Instagram
             </a>
 
             <a
-              href="#"
+              href="mailto:sabbirul.haque.tanvir@gmail.com"
               className="transition hover:text-white"
             >
               Email
